@@ -10,6 +10,9 @@ try {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
+
+  // to get a octokit context we need, use an environment variable for the token
+  const token =  process.env['GITHUB_TOKEN'];
 } catch (error) {
   core.setFailed(error.message);
 }
