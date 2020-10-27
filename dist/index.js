@@ -2,61 +2,7 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 932:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-const core = __webpack_require__(186);
-const github = __webpack_require__(438);
-
-
-async function main() {
-  try {
-    const token = core.getInput('repo-token') || undefined;
-
-    const prMessage = core.getInput('pr-message') || undefined;
-
-    if(!token) {
-      const msg = new Error('A repo-token must be defined.')
-      console.log(msg),
-      core.setFailed(msg);
-    }
-
-    if(!prMessage) {
-      const message = new Error('a pr-message must be defined')
-      core.setFailed(message);
-    }
-
-    const payload = github.context.payload;
-
-    const requestPayload = {
-      owner: payload.repository.owner.login,
-      repo: payload.repository.name,
-      issue_number: payload.pull_request.number
-    }
-
-    const client = github.getOctokit(token);
-
-    client.issues.createComment({...requestPayload, body: prMessage}).then(resp => {
-      console.log('success')
-    }, err => {
-      console.log(err);
-      core.setFailed(err);
-    })
-    
-  } catch (error) {
-    console.log(error);
-    core.setFailed(error);
-  }
-
-}
-
-main();
-
-
-
-/***/ }),
-
-/***/ 351:
+/***/ 241:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -164,7 +110,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const command_1 = __webpack_require__(351);
+const command_1 = __webpack_require__(241);
 const file_command_1 = __webpack_require__(717);
 const utils_1 = __webpack_require__(278);
 const os = __importStar(__webpack_require__(87));
@@ -3283,7 +3229,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var deprecation = __webpack_require__(481);
+var deprecation = __webpack_require__(932);
 var once = _interopDefault(__webpack_require__(223));
 
 const logOnce = once(deprecation => console.warn(deprecation));
@@ -3668,7 +3614,7 @@ function removeHook (state, name, method) {
 
 /***/ }),
 
-/***/ 481:
+/***/ 932:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5794,6 +5740,60 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 351:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+const core = __webpack_require__(186);
+const github = __webpack_require__(438);
+
+
+async function main() {
+  try {
+    const token = core.getInput('repo-token') || undefined;
+
+    const prMessage = core.getInput('pr-message') || undefined;
+
+    if(!token) {
+      const msg = new Error('A repo-token must be defined.')
+      console.log(msg),
+      core.setFailed(msg);
+    }
+
+    if(!prMessage) {
+      const message = new Error('a pr-message must be defined')
+      core.setFailed(message);
+    }
+
+    const payload = github.context.payload;
+
+    const requestPayload = {
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      issue_number: payload.pull_request.number
+    }
+
+    const client = github.getOctokit(token);
+
+    client.issues.createComment({...requestPayload, body: prMessage}).then(resp => {
+      console.log('success')
+    }, err => {
+      console.log(err);
+      core.setFailed(err);
+    })
+    
+  } catch (error) {
+    console.log(error);
+    core.setFailed(error);
+  }
+
+}
+
+main();
+
+
+
+/***/ }),
+
 /***/ 877:
 /***/ ((module) => {
 
@@ -5944,6 +5944,6 @@ module.exports = require("zlib");
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(932);
+/******/ 	return __webpack_require__(351);
 /******/ })()
 ;
