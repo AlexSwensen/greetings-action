@@ -5,6 +5,9 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
+  repo-token: 
+    description: 'repository token, usually defined as ${{ secrets.GITHUB_TOKEN }}'
+    required: false
 outputs:
   time: # id of output
     description: 'The time we greeted you'
