@@ -15,8 +15,26 @@ try {
   const time = (new Date()).toTimeString();
   core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
+  const payload = github.context.payload;
+
+  // to get a octokit context we need, use an environment variable for the token
+  const token =  process.env['GITHUB_TOKEN'];
+  const prNumber = github.context.payload.pull_request.number;
+
+  const requestPayload = {
+    owner: payload.repository.owner.login,
+    repo: payload.repository.name,
+    issue_number: payload.pull_request.number
+  }
+
+  const octokit = github.getOctokit(token);
+
+  octokit.issues.createComment({...requestPayload, body: "foobar"}).then(resp => {
+    console.log('success')
+  }, err => {
+    console.log(err);
+  })
+  
 } catch (error) {
   core.setFailed(error.message);
 }
