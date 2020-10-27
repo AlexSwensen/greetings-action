@@ -1,21 +1,26 @@
- Hello world javascript action
+Action to run upon opening a pr
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This helps new users understand how to help themselves more easily
 
 ## Inputs
 
-### `who-to-greet`
+### `repo-token`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** The github token for the repo. This can be passed in with `${{secrets.GITHUB_TOKEN}}`
 
-## Outputs
+### `pr-message`
 
-### `time`
-
-The time we greeted you.
+**Required** The message you would like to post as a comment. This can be formatted in markdown.
 
 ## Example usage
 
-uses: actions/hello-world-javascript-action@v1.1
-with:
-  who-to-greet: 'Mona the Octocat'
+```yml
+  steps:
+  - name: Hello world action step
+    id: hello
+    uses: AlexSwensen/greetings-action@v0.4-alpha
+    with:
+      repo-token: ${{secrets.GITHUB_TOKEN}}
+      pr-message:
+      'welcome to my fancy repo, for help feel free to open an issue [here](https://issue-url)'
+```

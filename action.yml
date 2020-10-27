@@ -1,16 +1,12 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Greeting Message'
+description: 'Post an initial message when a PR is opened'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
   repo-token: 
-    description: 'repository token, usually defined as secrets.GITHUB_TOKEN'
-    required: false
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+    description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
+    required: true
+  pr-message:
+    description: 'Comment to post upon opening a pull request'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
